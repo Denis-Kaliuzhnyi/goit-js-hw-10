@@ -1,51 +1,60 @@
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
-flatpickr("#datetime-picker", {
+
+const options = {
     enableTime: true,
     time_24hr: true,
-    defaultDate: Date.now(),
+    defaultDate: new Date(),
     minuteIncrement: 1,
-  });
+    onClose(selectedDates) {
+      const selectedDate = selectedDates[0];
+      const currentDate = new Date();
   
-  // Оголошення змінних
-  const startButton = document.getElementById('start-button');
-  const daysElement = document.getElementById('days');
-  const hoursElement = document.getElementById('hours');
-  const minutesElement = document.getElementById('minutes');
-  const secondsElement = document.getElementById('seconds');
-  let countdownInterval;
+      if (selectedDate < currentDate) {
+        iziToast.error({
+          title: 'Error',
+          message: 'Please choose a date in the future',
+        });
+        document.querySelector('[data-start]').disabled = true;
+      } else {
+        document.querySelector('[data-start]').disabled = false;
+      }
+    },
+  };
   
-  // Функція для розрахунку та відображення часу
-  function updateTimer() {
-    const currentDate = new Date();
-    const selectedDate = new Date(document.getElementById('datetime-picker').value);
-    const difference = selectedDate - currentDate;
-    if (difference <= 0) {
-      clearInterval(countdownInterval);
-      iziToast.error({
-        title: 'Error',
-        message: 'Time is up!'
-      });
-      return;
-    }
+  flatpickr("#datetime-picker", options);
   
-    const seconds = Math.floor((difference / 1000) % 60);
-    const minutes = Math.floor((difference / 1000 / 60) % 60);
-    const hours = Math.floor((difference / 1000 / 60 / 60) % 24);
-    const days = Math.floor(difference / 1000 / 60 / 60 / 24);
+  function startTimer(endDate) {
+    const timerInterval = setInterval(() => {
+      const currentTime = new Date();
+      const timeDifference = endDate - currentTime;
   
-    daysElement.textContent = formatTime(days);
-    hoursElement.textContent = formatTime(hours);
-    minutesElement.textContent = formatTime(minutes);
-    secondsElement.textContent = formatTime(seconds);
+      if (timeDifference <= 0) {
+        clearInterval(timerInterval);
+        updateTimerUI({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+  
+      const { days, hours, minutes, seconds } = convertMs(timeDifference);
+      updateTimerUI({ days, hours, minutes, seconds });
+    }, 1000);
   }
   
-  // Функція для форматування часу (додавання нуля перед одноразовими числами)
-  function formatTime(time) {
-    return time < 10 ? `0${time}` : time;
+  function updateTimerUI({ days, hours, minutes, seconds }) {
+    document.querySelector('[data-days]').textContent = addLeadingZero(days);
+    document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
+    document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
+    document.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
   }
   
-  // Обробник кліку на кнопці "Start"
-  startButton.addEventListener('click', function() {
-    countdownInterval = setInterval(updateTimer, 1000);
-  });
+  function addLeadingZero(value) {
+    return value < 10 ? `0${value}` : value;
+  }
   
+  document.querySelector('[data-start]').addEventListener('click', () => {
+    const selectedDate = new Date(flatpickr.parseDate(document.querySelector("#datetime-picker").value));
+    document.querySelector('[data-start]').disabled = true;
+    document.querySelector("#datetime-picker").disabled = true;
+    startTimer(selectedDate);
+  });
