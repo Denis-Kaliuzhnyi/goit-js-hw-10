@@ -26,8 +26,7 @@ form.addEventListener('submit', event => {
         message: `✅ Fulfilled promise in ${delay}ms`,
         position: 'topRight'
       });
-    })
-    .catch(delay => {
+    }).catch(delay => {
       iziToast.error({
         title: 'Notification',
         message: `❌ Rejected promise in ${delay}ms`,
