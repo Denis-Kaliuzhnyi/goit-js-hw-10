@@ -34,4 +34,3 @@ form.addEventListener('submit', event => {
       });
     });
 });
-
