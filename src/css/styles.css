@@ -6,6 +6,34 @@
 */
 @import url('./reset.css');
 
+:root {
+  --font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+input {
+  width: 272px;
+  height: 40px;
+  text-align: center;
+  margin-right: 8px;
+}
+button {
+  border-radius: 8px;
+padding: 8px 16px;
+width: 75px;
+height: 40px;
+background: #cfcfcf;
+}
+
+.input-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .timer {
   display: flex;
   justify-content: center;
@@ -15,5 +43,23 @@
 }
 
 .field {
+  display: block;
   margin: 0 10px;
+}
+
+.value {
+  font-family: var(--font-family);
+font-weight: 400;
+font-size: 40px;
+line-height: 120%;
+letter-spacing: 0.04em;
+color: #2e2f42;
+}
+
+.label {
+  font-family: var(--font-family);
+font-weight: 400;
+font-size: 16px;
+line-height: 150%;
+color: #2e2f42;
 }
