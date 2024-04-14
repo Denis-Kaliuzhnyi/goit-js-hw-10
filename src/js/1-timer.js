@@ -6,7 +6,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 let startDate = 0;
 const btnStart = document.querySelector('[data-start]');
-const inputDate = document.querySelector('#datetime-picker');
+const inputWindow = document.querySelector('#datetime-picker');
 const daysCountdown = document.querySelector('[data-days]');
 const hoursCountdown = document.querySelector('[data-hours]');
 const minutesCountdown = document.querySelector('[data-minutes]');
@@ -36,7 +36,7 @@ btnStart.addEventListener('click', startCountdown);
 
 function startCountdown() {
   btnStart.disabled = true;
-  inputDate.disabled = true;
+  inputWindow.disabled = true;
   const timerId = setInterval(updateTimer, 1000);
 
   function updateTimer() {
