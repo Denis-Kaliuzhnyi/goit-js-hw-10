@@ -1,0 +1,43 @@
+section {
+  font-size: 18px;
+}
+
+.form {
+  width: 360px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.delay-ms {
+  display: block;
+  margin-bottom: 16px;
+}
+
+fieldset {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 24px;
+  border-radius: 4px;
+  stroke-width: 1px;
+  stroke: #808080;
+}
+
+fieldset:hover {
+  border-radius: 4px;
+  stroke-width: 1px;
+  stroke: #000;
+}
+
+button {
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 360px;
+  height: 40px;
+  background: #4e75ff;
+  border: 2px solid transparent;
+}
+
+button:hover,
+button:focus {
+  background: #6c8cff;
+}

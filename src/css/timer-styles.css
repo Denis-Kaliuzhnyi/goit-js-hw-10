@@ -33,6 +33,22 @@ button {
   background: #cfcfcf;
 }
 
+button:active {
+  border-radius: 8px;
+padding: 8px 16px;
+width: 75px;
+height: 40px;
+background: #4e75ff;
+}
+
+input:active {
+border-radius: 4px;
+border-color: #4e75ff;
+width: 280px;
+height: 40px;
+background: #fff;
+}
+
 .input-button {
   display: flex;
   justify-content: center;
