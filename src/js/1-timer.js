@@ -3,7 +3,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-let startDate = 0;
+let startDate = new Date();
 const btnStart = document.querySelector('[data-start]');
 const inputWindow = document.querySelector('#datetime-picker');
 const daysCountdown = document.querySelector('[data-days]');
@@ -20,9 +20,9 @@ flatpickr('#datetime-picker', {
   minuteIncrement: 1,
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
-    if (selectedDate < Date.now()) {
+    if (selectedDate < new Date()) {
       displayErrorMessage('Please choose date in the future');
-      selectedDates[0] = Date.now();
+      selectedDates[0] = new Date();
       btnStart.disabled = true;
     } else {
       startDate = selectedDate;
@@ -39,7 +39,7 @@ function startCountdown() {
   const timerId = setInterval(updateTimer, 1000);
 
   function updateTimer() {
-    const diff = startDate - Date.now();
+    const diff = startDate - new Date();
     if (diff <= 0) {
       clearInterval(timerId);
       resetTimerValues();
@@ -84,3 +84,5 @@ function displayErrorMessage(message) {
     message: message,
   });
 }
+
+
